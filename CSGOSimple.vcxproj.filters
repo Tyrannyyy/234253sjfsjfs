@@ -120,6 +120,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Nightmode.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="valve_sdk\misc\BaseHandle.hpp">
@@ -367,6 +370,9 @@
     </ClInclude>
     <ClInclude Include="droid.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Nightmode.h">
+      <Filter>Header Files\features</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

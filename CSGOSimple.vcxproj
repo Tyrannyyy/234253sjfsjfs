@@ -107,6 +107,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Nightmode.cpp" />
     <ClCompile Include="options.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="valve_sdk\csgostructs.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="IRefCounted.h" />
     <ClInclude Include="menu.hpp" />
+    <ClInclude Include="Nightmode.h" />
     <ClInclude Include="options.hpp" />
     <ClInclude Include="singleton.hpp" />
     <ClInclude Include="ui.hpp" />
