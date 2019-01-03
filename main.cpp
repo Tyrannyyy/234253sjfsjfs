@@ -8,7 +8,7 @@
 #include "hooks.hpp"
 #include "menu.hpp"
 #include "options.hpp"
-
+//rgejuhwerjnrwe
 DWORD WINAPI OnDllAttach(LPVOID base)
 {
     // 
