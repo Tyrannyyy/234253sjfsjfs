@@ -13,19 +13,15 @@
 #include "imgui/imgui_internal.h"
 #include "imgui/directx9/imgui_impl_dx9.h"
 
-//BIG CHUNGUS
-
-// =========================================================
-// 
-// These are the tabs on the sidebar
-// 
-// =========================================================
-static char* sidebar_tabs[] = {
-    "ESP",
-    "AIM",
-    "MISC",
-    "CONFIG"
-};
+/* Menu Stuff */
+static int MenuX = 700;
+static int MenuY = 320;
+static int GroupX = 250;
+static int GroupY = 200;
+static float MenuA = 1.0f;
+int tabC = 0;
+ bool visS = false;
+ bool rageS = false;
 
 static ConVar* cl_mouseenable = nullptr;
 
@@ -140,11 +136,22 @@ void Menu::OnDeviceLost()
 {
     ImGui_ImplDX9_InvalidateDeviceObjects();
 }
+/*
+int Menu::ButtonSizeCalc()//Bx & By = button X , Button Y
+{
+	int B_y = 40; //i want it to be 40 as its a nice size and does not need a calc.
 
+	int B_x =  MenuX / tabC; //tabc is 0. big problem
+
+	return B_x;
+	//ps i made this very basic but needed :)
+}
+*/
 void Menu::OnDeviceReset()
 {
     ImGui_ImplDX9_CreateDeviceObjects();
 }
+/*
 ImVec2 get_sidebar_size()
 {
 	constexpr float padding = 10.0f;
@@ -153,45 +160,76 @@ ImVec2 get_sidebar_size()
 
 	return ImVec2{ size_w, ImMax(325.0f, size_h) };
 }
+*/
 void Menu::Render()
 {
-	static int MenuX = 700;
-	static int MenuY = 320;
-	static int GroupX = 250;
-	static int GroupY = 200;
-	static float MenuA = 1.0f;
 
 	if (!_visible)
 		return;
 
-	ImGui::SetNextWindowPos(ImVec2{ 300, 300 }, ImGuiSetCond_Once);
-	ImGui::SetNextWindowSize(ImVec2{ 1000, 1000 }, ImGuiSetCond_Once);
-
 	ImGui_ImplDX9_NewFrame();
 	ImGui::GetIO().MouseDrawCursor = _visible;
- 
-
-	if (ImGui::Begin("ProNoun" , &_visible , ImVec2 ( MenuX, MenuY ), MenuA , ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings) )
-	{
-
-		ImGui::BeginGroupBox( "##test", ImVec2( GroupX, GroupY ) );
-		{
-			ImGui::Text("ESP");
-			ImGui::Separator();
-			ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
-			ImGui::Checkbox("Bhop", &g_Options.bhopON);
-			ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
-		}
-
-		ImGui::EndGroupBox();
-
-
-	}
-	ImGui::End();
 	
 
-    ImGui::Render();
-	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+	if (ImGui::Begin("ProNoun", &_visible, ImVec2( MenuX , MenuY), MenuA, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings))
+	{
+		ImGui::BeginGroup();
+		{
+			/*  Tab Stuff  */
+			static bool visS = false;
+			static bool rageS = false;;
+			auto menu_tab_vis = visS ? "Vis Off" : "Vis On";
+			auto menu_tab_rage = rageS ? "Rage Off" : "Rage On";
+			if (ImGui::Button(menu_tab_rage, ImVec2(170, 40)))
+				tabC = 0;
+			ImGui::SameLine();
+			if (ImGui::Button(menu_tab_vis, ImVec2(170, 40)))
+				tabC = 1;
+		}
+		ImGui::EndGroup();
+		switch (tabC)
+		{
+			//Rage
+		case 0:
+			{
+				bool visS = false;
+				bool rageS = true;
+				ImGui::BeginGroupBox("##rage", ImVec2( GroupX , GroupY));
+				{
+				ImGui::Text("Rage");
+				ImGui::Separator( );
+
+				ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
+				ImGui::Checkbox("Bhop", &g_Options.bhopON);
+				ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
+				ImGui::Checkbox("3rd Person", &g_Options.thirdpersonON);
+				}
+				ImGui::EndGroupBox( );
+			}
+			break;
+			//Visuals
+			case 1:
+			{
+				bool visS = true;
+				bool rageS = false;
+				ImGui::BeginGroupBox("##vis", ImVec2( GroupX , GroupY ) );
+				{
+					ImGui::Text("ESP");
+					ImGui::Separator( );
+
+					ImGui::Checkbox("Bou3535353oxes", &g_Options.boundingboxON);
+					ImGui::Checkbox("B3535353535", &g_Options.bhopON);
+					ImGui::Checkbox("3533535", &g_Options.nightmodeON);
+					ImGui::Checkbox("3535353", &g_Options.thirdpersonON);
+				}
+				ImGui::EndGroupBox( );
+				break;
+			}
+		}
+	}
+	ImGui::End( );
+    ImGui::Render( );
+	ImGui_ImplDX9_RenderDrawData( ImGui::GetDrawData( ) );
 }
 
 void Menu::Show()
@@ -250,7 +288,7 @@ void Menu::CreateStyle()
 	_style.Colors[ImGuiCol_ChildWindowBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 	_style.Colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
 	_style.Colors[ImGuiCol_Border] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
-	_style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	_style.Colors[ImGuiCol_BorderShadow] = ImVec4(1.0f, 0.10f, 0.10f, 1.00f);
 	_style.Colors[ImGuiCol_FrameBg] = ImVec4(0.03f, 0.03f, 0.03f, 1.00f);
 	_style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.90f, 0.80f, 0.80f, 0.40f);
 	_style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.90f, 0.65f, 0.65f, 0.45f);
@@ -267,9 +305,9 @@ void Menu::CreateStyle()
 	_style.Colors[ImGuiCol_CheckMark] = ImVec4(0.80f, 0.05f, 0.05f, 0.50f);
 	_style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
 	_style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
-	_style.Colors[ImGuiCol_Button] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-	_style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.40f, 0.00f, 0.00f, 1.00f);
-	_style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
+	_style.Colors[ImGuiCol_Button] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+	_style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+	_style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
 	_style.Colors[ImGuiCol_Header] = ImVec4(0.40f, 0.40f, 0.90f, 0.45f);
 	_style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.45f, 0.45f, 0.90f, 0.80f);
 	_style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.53f, 0.53f, 0.87f, 0.80f);

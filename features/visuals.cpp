@@ -369,15 +369,15 @@ void Visuals::Misc::RenderPlantedC4(C_BaseEntity* ent)
 void Visuals::Misc::ThirdPerson() {
 	if (!g_LocalPlayer)
 		return;
-	/*
-	if (g_Options.misc_thirdperson && g_LocalPlayer->IsAlive())
+	
+	if (g_Options.thirdpersonON && g_LocalPlayer->IsAlive())
 	{
 		if (!g_Input->m_fCameraInThirdPerson)
 		{
 			g_Input->m_fCameraInThirdPerson = true;
 		}
 
-		float dist = g_Options.misc_thirdperson_dist;
+		float dist = 150.0f;
 
 		QAngle *view = g_LocalPlayer->GetVAngles();
 		trace_t tr;
@@ -426,5 +426,5 @@ void Visuals::Misc::ThirdPerson() {
 	{
 		g_Input->m_fCameraInThirdPerson = false;
 	}
-	*/
+	
 }

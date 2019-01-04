@@ -270,7 +270,8 @@ namespace Hooks
 	{
 		static auto ofunc = clientmode_hook.get_original<OverrideView>(index::OverrideView);
 
-		if (g_EngineClient->IsInGame() && vsView) {
+		if (g_EngineClient->IsInGame() && vsView) 
+		{
 			Visuals::Misc::ThirdPerson();
 		}
 
