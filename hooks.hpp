@@ -16,6 +16,8 @@ namespace index
     constexpr auto DoPostScreenSpaceEffects = 44;
 	constexpr auto SvCheatsGetBool          = 13;
 	constexpr auto OverrideView             = 18;
+	constexpr auto LockCursor               = 67;
+	constexpr auto UnlockCursor             = 66;
 }
 
 namespace Hooks
@@ -40,6 +42,7 @@ namespace Hooks
     using FireEvent           = bool(__thiscall*)(IGameEventManager2*, IGameEvent* pEvent);
     using DoPostScreenEffects = int(__thiscall*)(IClientMode*, int);
 	using OverrideView = void(__thiscall*)(IClientMode*, CViewSetup*);
+	typedef void(__fastcall* LockCursor_t) (ISurface*, void*);
 
 
     long __stdcall hkEndScene(IDirect3DDevice9* device);
@@ -52,5 +55,6 @@ namespace Hooks
     void __stdcall hkFrameStageNotify(ClientFrameStage_t stage);
 	void __stdcall hkOverrideView(CViewSetup * vsView);
     int  __stdcall hkDoPostScreenEffects(int a1);
+	void __fastcall hkLockCursor(ISurface* thisptr, void* edx);
 	bool __fastcall hkSvCheatsGetBool(PVOID pConVar, void* edx);
 }

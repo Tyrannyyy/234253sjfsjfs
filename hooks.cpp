@@ -11,7 +11,7 @@
 #include "features/glow.hpp"
 #include "Nightmode.h"
 #pragma intrinsic(_ReturnAddress)  
-
+ConVar* r_DrawSpecificStaticProp;
 namespace Hooks
 {
 	vfunc_hook hlclient_hook;
@@ -40,7 +40,7 @@ namespace Hooks
 		hlclient_hook.hook_index(index::CreateMove, hkCreateMove_Proxy);
 
 		vguipanel_hook.hook_index(index::PaintTraverse, hkPaintTraverse);
-
+		vguisurf_hook.hook_index(67, hkLockCursor);
 		vguisurf_hook.hook_index(index::PlaySound, hkPlaySound);
 
 		mdlrender_hook.hook_index(index::DrawModelExecute, hkDrawModelExecute);
@@ -129,7 +129,8 @@ namespace Hooks
 		if (!cmd || !cmd->command_number)
 			return;
 
-		if (g_Options.bhopON) {
+		if (g_Options.bhopON)
+		{
 			BunnyHop::OnCreateMove(cmd);
 		}
 
@@ -188,9 +189,6 @@ namespace Hooks
 
 						if (entity == g_LocalPlayer)
 							continue;
-
-						nightmode::doNightmode();
-
 
 						if (i < 65 && !entity->IsDormant() && entity->IsAlive())
 						{
@@ -301,5 +299,17 @@ namespace Hooks
 		if (reinterpret_cast<DWORD>(_ReturnAddress()) == reinterpret_cast<DWORD>(dwCAM_Think))
 			return true;
 		return ofunc(pConVar);
+	}
+
+
+	void __fastcall hkLockCursor(ISurface* thisptr, void* edx)
+	{
+		static auto oLockCursor = Hooks::vguisurf_hook.get_original<LockCursor_t>(67);
+
+		if (!Menu::Get().IsVisible())
+	
+			return oLockCursor(thisptr, edx);
+	
+		g_VGuiSurface->UnlockCursor();
 	}
 }
