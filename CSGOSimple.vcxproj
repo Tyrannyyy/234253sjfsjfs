@@ -109,6 +109,7 @@
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="Nightmode.cpp" />
     <ClCompile Include="options.cpp" />
+    <ClCompile Include="SpoofedConvar.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="valve_sdk\csgostructs.cpp" />
     <ClCompile Include="valve_sdk\sdk.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Nightmode.h" />
     <ClInclude Include="options.hpp" />
     <ClInclude Include="singleton.hpp" />
+    <ClInclude Include="SpoofedConvar.hpp" />
     <ClInclude Include="ui.hpp" />
     <ClInclude Include="valve_sdk\csgostructs.hpp" />
     <ClInclude Include="valve_sdk\sdk.hpp" />

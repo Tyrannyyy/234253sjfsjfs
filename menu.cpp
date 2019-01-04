@@ -180,6 +180,7 @@ void Menu::Render()
 			ImGui::Separator();
 			ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
 			ImGui::Checkbox("Bhop", &g_Options.bhopON);
+			ImGui::Checkbox("Nightmode", &g_Options.nightmode);
 		}
 
 		ImGui::EndGroupBox();

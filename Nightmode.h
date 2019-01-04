@@ -1,7 +1,7 @@
-/*#pragma once
-#include "valve_sdk/interfaces/IConVar.hpp"
+#pragma once
+#include "SpoofedConvar.hpp"
 
 namespace nightmode
 {
 void doNightmode();
-}/*
+}

@@ -1,7 +1,7 @@
 // NEEDS TO BE ADDED TO MENU
 
 
-/*#include "nightmode.h"
+#include "nightmode.h"
 
 #include "valve_sdk/csgostructs.hpp"
 #include "options.hpp"
@@ -106,4 +106,4 @@ namespace nightmode
 			}
 		}
 	}
-} */
+} 

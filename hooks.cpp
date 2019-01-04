@@ -9,6 +9,7 @@
 #include "features/chams.hpp"
 #include "features/visuals.hpp"
 #include "features/glow.hpp"
+#include "Nightmode.h"
 #pragma intrinsic(_ReturnAddress)  
 
 namespace Hooks
@@ -168,6 +169,7 @@ namespace Hooks
 				panelId = panel;
 			}
 		}
+
 		else if (panelId == panel) {
 			if (g_EngineClient->IsInGame() && !g_EngineClient->IsTakingScreenshot()) {
 
@@ -186,6 +188,8 @@ namespace Hooks
 
 						if (entity == g_LocalPlayer)
 							continue;
+
+						nightmode::doNightmode();
 
 
 						if (i < 65 && !entity->IsDormant() && entity->IsAlive())
