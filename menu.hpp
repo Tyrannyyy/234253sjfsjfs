@@ -14,7 +14,6 @@ public:
     void Shutdown();
 
     void OnDeviceLost();
-	int ButtonSizeCalc();
     void OnDeviceReset();
 
     void Render();

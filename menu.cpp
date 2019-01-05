@@ -14,12 +14,12 @@
 #include "imgui/directx9/imgui_impl_dx9.h"
 
 /* Menu Stuff */
-static int MenuX = 700;
-static int MenuY = 320;
-static int GroupX = 250;
-static int GroupY = 200;
-static float MenuA = 1.0f;
-int tabC = 0;
+ int MenuX = 700;
+ int MenuY = 320;
+ int GroupX = 250;
+ int GroupY = 200;
+ float MenuA = 1.0f;
+ int tabC = 1;
  bool visS = false;
  bool rageS = false;
 
@@ -136,17 +136,16 @@ void Menu::OnDeviceLost()
 {
     ImGui_ImplDX9_InvalidateDeviceObjects();
 }
-/*
-int Menu::ButtonSizeCalc()//Bx & By = button X , Button Y
+
+ImVec2 ButtonSizeCalc()     //Bx & By = button X , Button Y
 {
-	int B_y = 40; //i want it to be 40 as its a nice size and does not need a calc.
+	float B_y = 40;              //i want it to be 40 as its a nice size and does not need a calc.
 
-	int B_x =  MenuX / tabC; //tabc is 0. big problem
+	float B_x =  MenuX / tabC;  //tabc is 0. big problem
 
-	return B_x;
-	//ps i made this very basic but needed :)
+	return ImVec2(B_x, B_y);
+	                         //ps i made this very basic but needed :)
 }
-*/
 void Menu::OnDeviceReset()
 {
     ImGui_ImplDX9_CreateDeviceObjects();
@@ -171,65 +170,70 @@ void Menu::Render()
 	ImGui::GetIO().MouseDrawCursor = _visible;
 	
 
-	if (ImGui::Begin("ProNoun", &_visible, ImVec2( MenuX , MenuY), MenuA, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings))
+	if (ImGui::Begin("ProNoun", &_visible, ImVec2( MenuX , MenuY), MenuA, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_ShowBorders))
 	{
 		ImGui::BeginGroup();
 		{
 			/*  Tab Stuff  */
-			static bool visS = false;
-			static bool rageS = false;;
-			auto menu_tab_vis = visS ? "Vis Off" : "Vis On";
-			auto menu_tab_rage = rageS ? "Rage Off" : "Rage On";
-			if (ImGui::Button(menu_tab_rage, ImVec2(170, 40)))
-				tabC = 0;
-			ImGui::SameLine();
-			if (ImGui::Button(menu_tab_vis, ImVec2(170, 40)))
+			auto menu_tab_vis = visS ? "Vis" : "Vis";
+			auto menu_tab_rage = rageS ? "Rage" : "Rage";
+
+			if (ImGui::Button(menu_tab_rage, ButtonSizeCalc()))
 				tabC = 1;
+
+			ImGui::SameLine();
+
+			if (ImGui::Button(menu_tab_vis, ButtonSizeCalc()))
+
+				tabC = 2;
+
+			ImGui::SameLine();
 		}
 		ImGui::EndGroup();
+
 		switch (tabC)
 		{
-			//Rage
-		case 0:
-			{
-				bool visS = false;
-				bool rageS = true;
-				ImGui::BeginGroupBox("##rage", ImVec2( GroupX , GroupY));
-				{
-				ImGui::Text("Rage");
-				ImGui::Separator( );
-
-				ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
-				ImGui::Checkbox("Bhop", &g_Options.bhopON);
-				ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
-				ImGui::Checkbox("3rd Person", &g_Options.thirdpersonON);
-				}
-				ImGui::EndGroupBox( );
-			}
-			break;
 			//Visuals
 			case 1:
 			{
+				static bool visS = false;
+				static bool rageS = true;
+				ImGui::BeginGroupBox("##rage", ImVec2(GroupX, GroupY));
+				{
+					ImGui::Text("Rage");
+					ImGui::Separator();
+
+					ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
+					ImGui::Checkbox("Bhop", &g_Options.bhopON);
+					ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
+					ImGui::Checkbox("3rd Person", &g_Options.thirdpersonON);
+				}
+				ImGui::EndGroupBox();
+				break;
+			}
+			case 2:
+			{
 				bool visS = true;
 				bool rageS = false;
-				ImGui::BeginGroupBox("##vis", ImVec2( GroupX , GroupY ) );
+				ImGui::BeginGroupBox("##vis", ImVec2(GroupX, GroupY));
 				{
 					ImGui::Text("ESP");
-					ImGui::Separator( );
+					ImGui::Separator();
 
 					ImGui::Checkbox("Bou3535353oxes", &g_Options.boundingboxON);
 					ImGui::Checkbox("B3535353535", &g_Options.bhopON);
 					ImGui::Checkbox("3533535", &g_Options.nightmodeON);
 					ImGui::Checkbox("3535353", &g_Options.thirdpersonON);
 				}
-				ImGui::EndGroupBox( );
+				ImGui::EndGroupBox();
 				break;
+
 			}
 		}
 	}
-	ImGui::End( );
-    ImGui::Render( );
-	ImGui_ImplDX9_RenderDrawData( ImGui::GetDrawData( ) );
+		ImGui::End( );
+			ImGui::Render( );
+				ImGui_ImplDX9_RenderDrawData( ImGui::GetDrawData( ) );
 }
 
 void Menu::Show()

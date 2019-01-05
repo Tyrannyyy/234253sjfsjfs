@@ -96,8 +96,8 @@ bool ImGui::BeginGroupBox(const char* name, const ImVec2& size_arg)
 		//RenderTextClipped(pos, pos + text_size, name, NULL, NULL, GetColorU32(ImGuiCol_Text));
 		window->DrawList->PopClipRect();
 	}
-	//if (!(window->Flags & ImGuiWindowFlags_ShowBorders))
-	//	ImGui::GetCurrentWindow()->Flags &= ~ImGuiWindowFlags_ShowBorders;
+	if (!(window->Flags & ImGuiWindowFlags_ShowBorders))
+		ImGui::GetCurrentWindow()->Flags &= ~ImGuiWindowFlags_ShowBorders;
 
 	return ret;
 }
