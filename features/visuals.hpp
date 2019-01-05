@@ -33,4 +33,5 @@ namespace Visuals
 
     bool CreateFonts();
     void DestroyFonts();
+	void GrenadeESP(C_BaseEntity * ent);
 }

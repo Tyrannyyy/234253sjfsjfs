@@ -24,15 +24,15 @@ namespace Hooks
 
 	void Initialize()
 	{
-		hlclient_hook.setup(g_CHLClient,"client_panorama.dll");
-		direct3d_hook.setup(g_D3DDevice9,"shaderapidx9.dll");
+		hlclient_hook.setup(g_CHLClient, "client_panorama.dll");
+		direct3d_hook.setup(g_D3DDevice9, "shaderapidx9.dll");
 		vguipanel_hook.setup(g_VGuiPanel);
 		vguisurf_hook.setup(g_VGuiSurface);
-		mdlrender_hook.setup(g_MdlRender,"engine.dll");
-		clientmode_hook.setup(g_ClientMode,"client_panorama.dll");
+		mdlrender_hook.setup(g_MdlRender, "engine.dll");
+		clientmode_hook.setup(g_ClientMode, "client_panorama.dll");
 		ConVar* sv_cheats_con = g_CVar->FindVar("sv_cheats");
 		sv_cheats.setup(sv_cheats_con);
-		
+
 		direct3d_hook.hook_index(index::EndScene, hkEndScene);
 		direct3d_hook.hook_index(index::Reset, hkReset);
 
@@ -171,8 +171,10 @@ namespace Hooks
 			}
 		}
 
-		else if (panelId == panel) {
-			if (g_EngineClient->IsInGame() && !g_EngineClient->IsTakingScreenshot()) {
+		else if (panelId == panel) 
+		{
+			if (g_EngineClient->IsInGame() && !g_EngineClient->IsTakingScreenshot()) 
+			{
 
 				if (!g_LocalPlayer)
 					return;
@@ -192,41 +194,42 @@ namespace Hooks
 
 						if (i < 65 && !entity->IsDormant() && entity->IsAlive())
 						{
-							/*
+
 							// Begin will calculate player screen coordinate, bounding box, etc
 							// If it returns false it means the player is not inside the screen
 							// or is an ally (and team check is enabled)
-							if (Visuals::Player::Begin(entity)) {
-								if (g_Options.esp_player_snaplines) Visuals::Player::RenderSnapline();
-								if (g_Options.esp_player_boxes)     Visuals::Player::RenderBox();
-								if (g_Options.esp_player_weapons)   Visuals::Player::RenderWeapon();
-								if (g_Options.esp_player_names)     Visuals::Player::RenderName();
-								if (g_Options.esp_player_health)    Visuals::Player::RenderHealth();
-								if (g_Options.esp_player_armour)    Visuals::Player::RenderArmour();
+							if (Visuals::Player::Begin(entity))
+							{
+								//if (g_Options.esp_player_snaplines) Visuals::Player::RenderSnapline();
+								//if (g_Options.esp_player_boxes)     Visuals::Player::RenderBox();
+								//if (g_Options.esp_player_weapons)   Visuals::Player::RenderWeapon();
+								//if (g_Options.esp_player_names)     Visuals::Player::RenderName();
+								//if (g_Options.esp_player_health)    Visuals::Player::RenderHealth();
+								//if (g_Options.esp_player_armour)    Visuals::Player::RenderArmour();
 							}
 						}
-						else if (g_Options.esp_dropped_weapons && entity->IsWeapon()) {
-							Visuals::Misc::RenderWeapon((C_BaseCombatWeapon*)entity);
+						else if (g_Options.grenadeespON) 
+						{
+							Visuals::GrenadeESP((C_BaseEntity*)entity);
 						}
-						else if (g_Options.esp_defuse_kit && entity->IsDefuseKit()) {
-							Visuals::Misc::RenderDefuseKit(entity);
-						}
-						else if (entity->IsPlantedC4()) {
-							if (g_Options.esp_planted_c4)
-								Visuals::Misc::RenderPlantedC4(entity);
-						}
+						//else if (g_Options.esp_dropped_weapons && entity->IsWeapon()) {
+						//	Visuals::Misc::RenderWeapon((C_BaseCombatWeapon*)entity);
 					}
+					//else if (g_Options.esp_defuse_kit && entity->IsDefuseKit()) {
+					//	Visuals::Misc::RenderDefuseKit(entity);
 				}
-
-				if (g_Options.esp_crosshair)
-					Visuals::Misc::RenderCrosshair();
-					*/
-						}
-					}
-				}
+				//else if (entity->IsPlantedC4()) {
+					//if (g_Options.esp_planted_c4)
+						//Visuals::Misc::RenderPlantedC4(entity);
 			}
 		}
 	}
+
+
+				
+			
+		
+	
 	//--------------------------------------------------------------------------------
 	void __stdcall hkPlaySound(const char* name)
 	{

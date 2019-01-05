@@ -12,6 +12,7 @@ public:
   bool enemiesonlyON = false;
   bool espON = false;
   bool bhopON = false;
+  bool grenadeespON = false;
   bool nightmodeON = false;
   bool thirdpersonON = false;
   Color color_esp_ally_visible = Color(0, 128, 255);

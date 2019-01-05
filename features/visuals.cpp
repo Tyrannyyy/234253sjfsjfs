@@ -4,6 +4,7 @@
 #include "../valve_sdk/csgostructs.hpp"
 #include "../helpers/math.hpp"
 #include "../helpers/utils.hpp"
+#include <string>
 
 vgui::HFont esp_font;
 vgui::HFont defuse_font;
@@ -127,6 +128,110 @@ bool Visuals::Player::Begin(C_BasePlayer* pl)
 	return true;
 }
 //--------------------------------------------------------------------------------
+
+void Visuals::GrenadeESP(C_BaseEntity * ent)
+{
+	IMaterial * mats[32];
+	std::string nadeName = "Error";
+	model_t * GrenadeModel = ( model_t * )ent->GetModel();
+	Vector vGrenadePos2D = Vector(0.f, 0.f, 0.f);
+	Vector vGrenadePos3D = Vector(0.f, 0.f, 0.f);
+	float fGrenadeModelSize = 0.0f;
+
+	if (!GrenadeModel)//sanity check to make sure we dont crash into  jesus ass pussy
+		return;
+
+	studiohdr_t * hdr = (studiohdr_t*)g_MdlInfo->GetStudiomodel(GrenadeModel); //getting the grenade model
+	vGrenadePos3D = ent->m_vecOrigin();
+	fGrenadeModelSize = hdr->vecHullMax.DistTo(hdr->vecHullMin);
+	//if (Math::WorldToScreen(vGrenadePos3D, vGrenadePos2D))
+		//return;
+
+	auto nt = hdr->numtextures;
+	if (!hdr)//sanity check to make sure we dont crash into  jesus ass pussy
+		return;
+
+
+
+	if (!strstr(hdr->szName, "thrown") && strstr(hdr->szName, "dropped"))
+		return;
+
+	g_MdlInfo->GetModelMaterials(GrenadeModel, nt , mats);
+
+	for ( int loop = 0 ; loop < nt ; loop++ )
+	{
+		IMaterial * mat = mats[loop];
+		if (!mat)
+			continue;
+
+		if (strstr(mat->GetName(), "flashbang"))
+		{
+			nadeName = "Flash";
+			break;
+		}
+		else if (strstr(mat->GetName( ),"m67_grenade") || (strstr(mat->GetName(), "hegrenade")))
+		{
+			nadeName = "Grenade";
+			break;
+
+		}
+		else if (strstr(mat->GetName( ), "incendiary") || strstr(mat->GetName(), "molotov"))
+		{
+			nadeName = "Fire!";
+			break;
+
+
+		}
+		else if (strstr(mat->GetName( ), "smoke"))
+		{
+			nadeName = "Smoke";
+			break;
+		
+		}
+		else if (strstr(mat->GetName( ), "decoy"))
+		{
+			nadeName = "Decoy";
+			break;
+
+		}
+	}
+	const wchar_t* xd =  L"TEST";
+	g_VGuiSurface->DrawSetTextColor(Color::Red);
+	g_VGuiSurface->DrawSetTextPos(5, 5);
+	g_VGuiSurface->DrawPrintText(xd, wcslen(xd));
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Visuals::Player::RenderBox()
 {
 	/*
@@ -399,7 +504,7 @@ void Visuals::Misc::ThirdPerson() {
 		float distance2D = sqrt(abs(diff.x * diff.x) + abs(diff.y * diff.y));// Pythagorean
 
 		bool horOK = distance2D > (dist - 2.0f);
-		bool vertOK = (abs(diff.z) - abs(desiredCamOffset.z) < 3.0f);
+		bool vertOK = (abs(diff.z) - abs(desiredCamOffset.z) < 5.0f);
 
 		float cameraDistance;
 

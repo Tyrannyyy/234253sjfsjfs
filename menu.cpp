@@ -139,27 +139,16 @@ void Menu::OnDeviceLost()
 
 ImVec2 ButtonSizeCalc()     //Bx & By = button X , Button Y
 {
-	float B_y = 40;              //i want it to be 40 as its a nice size and does not need a calc.
+	float B_y = 40;         //i want it to be 40 as its a nice size and does not need a calc.
 
 	float B_x =  MenuX / 2;  //tabc is 0. big problem
 
-	return ImVec2(B_x, B_y);
-	                         //ps i made this very basic but needed :)
+	return ImVec2(B_x, B_y);//ps i made this very basic but needed :)
 }
 void Menu::OnDeviceReset()
 {
     ImGui_ImplDX9_CreateDeviceObjects();
 }
-/*
-ImVec2 get_sidebar_size()
-{
-	constexpr float padding = 10.0f;
-	constexpr auto size_w = padding * 2.0f + get_sidebar_item_width();
-	constexpr auto size_h = padding * 2.0f + (sizeof(sidebar_tabs) / sizeof(char*)) * get_sidebar_item_height();
-
-	return ImVec2{ size_w, ImMax(325.0f, size_h) };
-}
-*/
 void Menu::Render()
 {
 
@@ -207,6 +196,7 @@ void Menu::Render()
 					ImGui::Checkbox("Bhop", &g_Options.bhopON);
 					ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
 					ImGui::Checkbox("3rd Person", &g_Options.thirdpersonON);
+					ImGui::Checkbox("Grenade ESP", &g_Options.grenadeespON);
 				}
 				ImGui::EndGroupBox();
 				break;
