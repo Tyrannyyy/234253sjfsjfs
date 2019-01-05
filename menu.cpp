@@ -141,7 +141,7 @@ ImVec2 ButtonSizeCalc()     //Bx & By = button X , Button Y
 {
 	float B_y = 40;              //i want it to be 40 as its a nice size and does not need a calc.
 
-	float B_x =  MenuX / tabC;  //tabc is 0. big problem
+	float B_x =  MenuX / 2;  //tabc is 0. big problem
 
 	return ImVec2(B_x, B_y);
 	                         //ps i made this very basic but needed :)
@@ -175,7 +175,7 @@ void Menu::Render()
 		ImGui::BeginGroup();
 		{
 			/*  Tab Stuff  */
-			auto menu_tab_vis = visS ? "Vis" : "Vis";
+			auto menu_tab_vis = visS ? "Visible" : "Visible";
 			auto menu_tab_rage = rageS ? "Rage" : "Rage";
 
 			if (ImGui::Button(menu_tab_rage, ButtonSizeCalc()))
@@ -291,7 +291,7 @@ void Menu::CreateStyle()
 	_style.Colors[ImGuiCol_WindowBg] = ImVec4(0.12f, 0.12f, 0.12f, 1.00f);
 	_style.Colors[ImGuiCol_ChildWindowBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 	_style.Colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
-	_style.Colors[ImGuiCol_Border] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+	_style.Colors[ImGuiCol_Border] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 	_style.Colors[ImGuiCol_BorderShadow] = ImVec4(1.0f, 0.10f, 0.10f, 1.00f);
 	_style.Colors[ImGuiCol_FrameBg] = ImVec4(0.03f, 0.03f, 0.03f, 1.00f);
 	_style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.90f, 0.80f, 0.80f, 0.40f);
