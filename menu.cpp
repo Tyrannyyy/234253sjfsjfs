@@ -191,12 +191,13 @@ void Menu::Render()
 				{
 					ImGui::Text("Rage");
 					ImGui::Separator();
-
+					ImGui::Checkbox("ON.", &g_Options.espON);
 					ImGui::Checkbox("Bounding Boxes", &g_Options.boundingboxON);
 					ImGui::Checkbox("Bhop", &g_Options.bhopON);
 					ImGui::Checkbox("Nightmode", &g_Options.nightmodeON);
 					ImGui::Checkbox("3rd Person", &g_Options.thirdpersonON);
 					ImGui::Checkbox("Grenade ESP", &g_Options.grenadeespON);
+					ImGui::Checkbox("Zeus Range", &g_Options.ZeusRange);
 				}
 				ImGui::EndGroupBox();
 				break;

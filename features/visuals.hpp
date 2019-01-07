@@ -24,7 +24,8 @@ namespace Visuals
 
     namespace Misc
     {
-        void RenderCrosshair();
+		void ZeusRangeESP(C_BasePlayer * local);
+		void RenderCrosshair();
         void RenderWeapon(C_BaseCombatWeapon* ent);
         void RenderDefuseKit(C_BaseEntity* ent);
         void RenderPlantedC4(C_BaseEntity* ent);

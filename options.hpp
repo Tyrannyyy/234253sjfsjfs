@@ -15,6 +15,7 @@ public:
   bool grenadeespON = false;
   bool nightmodeON = false;
   bool thirdpersonON = false;
+  bool ZeusRange = false;
   Color color_esp_ally_visible = Color(0, 128, 255);
   Color color_esp_ally_occluded = Color(255, 255, 0);
   Color color_esp_enemy_occluded = Color(53, 224, 63);

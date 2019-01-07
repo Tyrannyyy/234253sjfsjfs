@@ -200,6 +200,7 @@ namespace Hooks
 							// or is an ally (and team check is enabled)
 							if (Visuals::Player::Begin(entity))
 							{
+								if (g_Options.ZeusRange)	Visuals::Misc::ZeusRangeESP(entity);
 								//if (g_Options.esp_player_snaplines) Visuals::Player::RenderSnapline();
 								//if (g_Options.esp_player_boxes)     Visuals::Player::RenderBox();
 								//if (g_Options.esp_player_weapons)   Visuals::Player::RenderWeapon();

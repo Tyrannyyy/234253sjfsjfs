@@ -5,6 +5,8 @@
 #include "../helpers/math.hpp"
 #include "../helpers/utils.hpp"
 #include <string>
+#include <iostream>     
+#include <iomanip>
 
 vgui::HFont esp_font;
 vgui::HFont defuse_font;
@@ -199,6 +201,29 @@ void Visuals::GrenadeESP(C_BaseEntity * ent)
 	g_VGuiSurface->DrawSetTextColor(Color::Red);
 	g_VGuiSurface->DrawSetTextPos(5, 5);
 	g_VGuiSurface->DrawPrintText(xd, wcslen(xd));
+
+}
+void Visuals::Misc::ZeusRangeESP(C_BasePlayer * local)//wepdata // flRange
+{
+	auto zeusget = g_LocalPlayer->m_hActiveWeapon()->m_Item().m_iItemDefinitionIndex() == WEAPON_TASER;
+	if (zeusget)
+	{
+		//if (!g_LocalPlayer);//b1g sanity checks
+		//return;
+		//get range
+
+		float getrange = g_LocalPlayer->m_hActiveWeapon()->GetCSWeaponData()->flRange;
+		std::stringstream stream;
+		stream << std::setprecision(4) << getrange;
+
+		std::string s = stream.str();
+		std::wstring ws = std::wstring(s.begin(), s.end());
+
+		const wchar_t* buf = ws.c_str();
+		g_VGuiSurface->DrawSetTextColor(Color::Red);
+		g_VGuiSurface->DrawSetTextPos(5, 5);
+		g_VGuiSurface->DrawPrintText(buf, wcslen(buf));
+	}
 
 }
 

@@ -86,6 +86,12 @@ bool C_BaseCombatWeapon::IsKnife()
 	return GetCSWeaponData()->WeaponType == WEAPONTYPE_KNIFE;
 }
 
+bool C_BaseCombatWeapon::IsTaser()
+{
+	if (this->m_Item().m_iItemDefinitionIndex() == WEAPON_TASER) 
+		return m_Item().m_iItemDefinitionIndex() == WEAPON_TASER;
+}
+
 bool C_BaseCombatWeapon::IsRifle()
 {
 	switch (GetCSWeaponData()->WeaponType)

@@ -186,6 +186,7 @@ public:
 	bool CanFire();
 	bool IsGrenade();
 	bool IsKnife();
+	bool IsTaser();
 	bool IsReloading();
 	bool IsRifle();
 	bool IsPistol();
